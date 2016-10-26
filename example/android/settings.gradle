@@ -1,0 +1,3 @@
+rootProject.name = 'RNFileSystemExample'
+
+include ':app'

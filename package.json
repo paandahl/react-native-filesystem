@@ -1,0 +1,14 @@
+{
+  "name": "react-native-simple-fs",
+  "version": "0.1.0",
+  "description": "Simple file system API for iOS & Android.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Wixen",
+  "license": "MIT",
+  "dependencies": {
+    "react-native-maps": "^0.11.0"
+  }
+}
