@@ -10,42 +10,52 @@ This is still under development, but a release will come soon.
 
 ## Write files
 
-    import FileSystem from 'react-native-simple-fs';
-    
-    async function writeFile() {
-      const fileContents = 'This is a file.';
-      await FileSystem.writeToFile('my-folder/my-file.txt', fileContents);
-      console.log('wrote file');
-    }   
-    
+```javascript
+import FileSystem from 'react-native-simple-fs';
+
+async function writeFile() {
+  const fileContents = 'This is a file.';
+  await FileSystem.writeToFile('my-folder/my-file.txt', fileContents);
+  console.log('wrote file');
+}   
+```
+
 All interaction is promise-based, and compatible with async/await-syntax. Subfolders are created automatically.
    
 ## Read from files
 
-    async function readFile() {
-      const fileContents = await FileSystem.readFile('my-folder/my-file.txt');
-      console.log(`read file: ${fileContents}`);
-    }   
+```javascript
+async function readFile() {
+  const fileContents = await FileSystem.readFile('my-folder/my-file.txt');
+  console.log(`read file: ${fileContents}`);
+}   
+```
     
 ## Delete files
 
-    async function deleteFile() {
-      await FileSystem.deleteFile('my-folder/my-file.txt');
-      console.log('deleted file');
-    }
+```javascript
+async function deleteFile() {
+  await FileSystem.deleteFile('my-folder/my-file.txt');
+  console.log('deleted file');
+}
+```
     
 ## Check if files exist
 
-    async function checkIfFileExists() {
-      const fileExists = await FileSystem.fileExists('my-folder/my-file.txt');
-      console.log(`file exists: ${fileExists}`);
-    }
+```javascript
+async function checkIfFileExists() {
+  const fileExists = await FileSystem.fileExists('my-folder/my-file.txt');
+  console.log(`file exists: ${fileExists}`);
+}
+```
     
 ## Select storage class
 
 All commands also takes an optional last argument specifying storage. These locations roughly corresponds to the four points of the [iOS Data Storage Guidelines](https://developer.apple.com/icloud/documentation/data-storage/index.html), and have similar behaviour on Android. 
 
-    FileSystem.writeFile('my-file.txt', 'My content', storage.important);
+```javascript
+FileSystem.writeFile('my-file.txt', 'My content', storage.important);
+```
    
 Files need to be read from the same storage they're saved to, and two files can have the same name if they're located in different storages. The options are:
 
