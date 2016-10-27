@@ -9,7 +9,7 @@ This library is still under development, and only works on iOS at the current mo
 ## Setup
 
     npm install react-native-filesystem --save
-    react-native link realm
+    react-native link react-native-filesystem
 
 ## Usage
 ### Write to files
