@@ -97,7 +97,7 @@ NSString *const STORAGE_TEMPORARY = @"TEMORARY";
 }
 
 // Extra method for integration from other modules / native code
-+ (void)moveFileFromUrl:(NSURL*)location toRelativePath:(NSString*)relativePath inStorage:(NSString*)storage {
++ (NSString*)moveFileFromUrl:(NSURL*)location toRelativePath:(NSString*)relativePath inStorage:(NSString*)storage {
   NSFileManager *fileManager = [NSFileManager defaultManager];
   NSURL *baseDir = [RNFileSystem baseDirForStorage:storage];
   NSURL *fullPath = [baseDir URLByAppendingPathComponent:relativePath];
@@ -106,6 +106,7 @@ NSString *const STORAGE_TEMPORARY = @"TEMORARY";
   if ([storage isEqual:STORAGE_IMPORTANT]) {
     [RNFileSystem addSkipBackupAttributeToItemAtPath:[fullPath path]];
   }
+  return [fullPath path];
 }
 
 RCT_EXPORT_MODULE()

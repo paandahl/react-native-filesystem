@@ -15,6 +15,6 @@ extern NSString *const STORAGE_TEMPORARY;
 + (BOOL)deleteFileOrDirectory:(NSString*)relativePath inStorage:(NSString*)storage;
 
 // Extra method for integration from other modules / native code
-+ (void)moveFileFromUrl:(NSURL*)location toRelativePath:(NSString*)relativePath inStorage:(NSString*)storage;
++ (NSString*)moveFileFromUrl:(NSURL*)location toRelativePath:(NSString*)relativePath inStorage:(NSString*)storage;
 
 @end
