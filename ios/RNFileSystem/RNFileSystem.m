@@ -99,6 +99,9 @@ NSString *const STORAGE_TEMPORARY = @"TEMORARY";
   NSURL *baseDir = [RNFileSystem baseDirForStorage:storage];
   NSURL *fullPath = [baseDir URLByAppendingPathComponent:relativePath];
   [fileManager moveItemAtURL:location toURL:fullPath error:nil];
+  if ([storage isEqual:STORAGE_IMPORTANT]) {
+    [RNFileSystem addSkipBackupAttributeToItemAtPath:[fullPath path]];
+  }
 }
 
 RCT_EXPORT_MODULE()
