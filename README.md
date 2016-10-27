@@ -11,7 +11,8 @@ This library is still under development, and only works on iOS at the current mo
     npm install react-native-filesystem --save
     react-native link realm
 
-## Write to files
+## Usage
+### Write to files
 
 ```javascript
 import FileSystem from 'react-native-filesystem';
@@ -25,7 +26,7 @@ async function writeFile() {
 
 Sub-directories are created automatically.
 
-## Read from files
+### Read from files
 
 ```javascript
 async function readFile() {
@@ -34,7 +35,7 @@ async function readFile() {
 }
 ```
 
-## Delete files or folders
+### Delete files or folders
 
 ```javascript
 async function deleteFile() {
@@ -43,7 +44,7 @@ async function deleteFile() {
 }
 ```
 
-## Check if files or directories exist
+### Check if files or directories exist
 
 ```javascript
 async function checkIfFileExists() {
@@ -54,35 +55,39 @@ async function checkIfFileExists() {
 }
 ```
 
-## Select storage class
+### Selecting storage class
 
-All commands also takes an optional last argument specifying storage. These locations roughly corresponds to the four points of the [iOS Data Storage Guidelines](https://developer.apple.com/icloud/documentation/data-storage/index.html), and have similar behaviour on Android.
+All commands also take an optional last argument specifying a storage class. 
+These classes roughly correspond to the four points of the 
+[iOS Data Storage Guidelines](https://developer.apple.com/icloud/documentation/data-storage/index.html), 
+and have similar behaviour on Android. Example usage:
 
 ```javascript
-FileSystem.writeFile('my-file.txt', 'My content', FileSystem.storage.important);
+FileSystem.writeToFile('my-file.txt', 'My content', FileSystem.storage.important);
 ```
 
-Files need to be read from the same storage they're saved to, and two files can have the same name if they're located in different storages. The options are:
+Files need to be read from the same storage class they're saved to, and two files can have the same name 
+if they're located in different storages. The options are:
 
-### storage.backedUp
+#### storage.backedUp
 
 The default. Files stored in this location will automatically be backed up by iCloud on iOS and [Auto Backup for Apps](https://developer.android.com/guide/topics/data/autobackup.html) on Android. This is generally for user-generated content that cannot be re-generated / re-downloaded.
 
 Corresponds to `<Application_Home>/Documents` on iOS and [Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) on Android.
 
-### storage.important
+#### storage.important
 
 This is for files that are possible to re-generate / re-download, but are still important to keep around. F.ex. offline maps.
 
 Corresponds to `<Application_Home>/<Application_Home>/Library/Caches` with "do not backup" flag on iOS and [Context.getNoBackupFilesDir()](https://developer.android.com/reference/android/content/Context.html#getNoBackupFilesDir()) on Android.
 
-### storage.auxiliary
+#### storage.auxiliary
 
 This storage class is for files that can be re-created, and are not crucial to the proper functioning of your app.
 
 Corresponds to `<Application_Home>/<Application_Home>/Library/Caches` on iOS and [Context.getExternalCacheDir()](https://developer.android.com/reference/android/content/Context.html#getExternalCacheDir()) on Android.
 
-### storage.temporary
+#### storage.temporary
 
 Location for temporary caches and data. You should still clean up / delete the files when they are no longer in use.
 
