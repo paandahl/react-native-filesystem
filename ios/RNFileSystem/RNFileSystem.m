@@ -21,14 +21,17 @@ NSString *const STORAGE_TEMPORARY = @"TEMORARY";
   }
 }
 
++ (void)createDirectoriesIfNeeded:(NSURL*)path {
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  NSString *directory = [[path URLByDeletingLastPathComponent] path];
+  [fileManager createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:nil];
+  
+}
+
 + (void)writeToFile:(NSString*)relativePath content:(NSString*)content inStorage:(NSString*)storage {
   NSURL *baseDir = [RNFileSystem baseDirForStorage:storage];
   NSURL *fullPath = [baseDir URLByAppendingPathComponent:relativePath];
-  
-  // create directory structure in case it's not already in place
-  NSFileManager *fileManager = [NSFileManager defaultManager];
-  NSString *directory = [[fullPath URLByDeletingLastPathComponent] path];
-  [fileManager createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:nil];
+  [RNFileSystem createDirectoriesIfNeeded:fullPath];
 
   [content writeToFile:[fullPath path] atomically:YES encoding:NSUTF8StringEncoding error:nil];
   if ([storage isEqual:STORAGE_IMPORTANT]) {
@@ -98,6 +101,7 @@ NSString *const STORAGE_TEMPORARY = @"TEMORARY";
   NSFileManager *fileManager = [NSFileManager defaultManager];
   NSURL *baseDir = [RNFileSystem baseDirForStorage:storage];
   NSURL *fullPath = [baseDir URLByAppendingPathComponent:relativePath];
+  [RNFileSystem createDirectoriesIfNeeded:fullPath];
   [fileManager moveItemAtURL:location toURL:fullPath error:nil];
   if ([storage isEqual:STORAGE_IMPORTANT]) {
     [RNFileSystem addSkipBackupAttributeToItemAtPath:[fullPath path]];
