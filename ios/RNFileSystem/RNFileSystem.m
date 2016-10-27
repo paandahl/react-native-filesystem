@@ -9,12 +9,15 @@ NSString *const STORAGE_TEMPORARY = @"TEMORARY";
 
 + (NSURL*)baseDirForStorage:(NSString*)storage {
   NSFileManager *fileManager = [NSFileManager defaultManager];
-  if ([storage  isEqual: STORAGE_BACKED_UP]) {
+  if ([storage isEqual:STORAGE_BACKED_UP]) {
     return [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
-  } else if ([storage isEqual: STORAGE_IMPORTANT] || [storage isEqual: STORAGE_AUXILIARY]) {
+  } else if ([storage isEqual:STORAGE_IMPORTANT] || [storage isEqual:STORAGE_AUXILIARY]) {
     return [fileManager URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
-  } else {
+  } else if ([storage isEqual:STORAGE_TEMPORARY]) {
     return [NSURL fileURLWithPath:NSTemporaryDirectory()];
+  } else {
+    [NSException raise:@"InvalidArgument" format:[NSString stringWithFormat:@"Storage type not recognized: %@", storage]];
+    return nil;
   }
 }
 
@@ -88,6 +91,14 @@ NSString *const STORAGE_TEMPORARY = @"TEMORARY";
     NSLog(@"Error excluding %@ from backup %@", [URL lastPathComponent], error);
   }
   return success;
+}
+
+// Extra method for integration from other modules / native code
++ (void)moveFileFromUrl:(NSURL*)location toRelativePath:(NSString*)relativePath inStorage:(NSString*)storage {
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  NSURL *baseDir = [RNFileSystem baseDirForStorage:storage];
+  NSURL *fullPath = [baseDir URLByAppendingPathComponent:relativePath];
+  [fileManager moveItemAtURL:location toURL:fullPath error:nil];
 }
 
 RCT_EXPORT_MODULE()
