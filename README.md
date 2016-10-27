@@ -97,7 +97,7 @@ Corresponds to `<Application_Home>/tmp` on iOS and [Context.getCacheDir()](https
 
 *Why yet another file system library?*
 
-I simply couldn't find one that satisified my basic needs for simplicity.
+I simply couldn't find one that satisfied my basic needs for simplicity.
 
 *Why not use the built-in AsyncStorage?*
 
