@@ -1,7 +1,8 @@
 # react-native-filesystem
 Simple file system API for iOS &amp; Android, for dealing with text-files.
 
-All interaction is promise-based, and compatible with async/await-syntax.
+All interaction is promise-based, and all content is 
+written and read as UTF-8.
 
 This library is still under development, and only works on iOS at the current moment.
 
@@ -81,8 +82,21 @@ This storage class is for files that can be re-created, and are not crucial to t
 
 Corresponds to `<Application_Home>/<Application_Home>/Library/Caches` on iOS and [Context.getExternalCacheDir()](https://developer.android.com/reference/android/content/Context.html#getExternalCacheDir()) on Android.
 
-### sotrage.temporary
+### storage.temporary
 
 Location for temporary caches and data. You should still clean up / delete the files when they are no longer in use.
 
 Corresponds to `<Application_Home>/tmp` on iOS and [Context.getCacheDir()](https://developer.android.com/reference/android/content/Context.html#getCacheDir()) on Android.
+
+## Questions?
+
+*Why yet another file system library?*
+
+I simply couldn't find one that satisified my basic needs for simplicity.
+
+*Why not use the built-in AsyncStorage?*
+
+[AsyncStorage](https://facebook.github.io/react-native/docs/asyncstorage.html) is fine, but some 
+times you want more control as to where the content is stored. This library lets you put it 
+in backed-up folders, or play nice by marking content that can be deleted when the 
+ phone runs low on space.
