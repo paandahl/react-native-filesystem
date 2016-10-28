@@ -49,7 +49,7 @@ async function deleteFile() {
 ```javascript
 async function checkIfFileExists() {
   const fileExists = await FileSystem.fileExists('my-directory/my-file.txt');
-  const directoryExists = await FileSystem.fileExists('my-directory/my-file.txt');
+  const directoryExists = await FileSystem.directoryExists('my-directory/my-file.txt');
   console.log(`file exists: ${fileExists}`);
   console.log(`directory exists: ${directoryExists}`);
 }
@@ -79,13 +79,13 @@ Corresponds to `<Application_Home>/Documents` on iOS and [Context.getFilesDir()]
 
 This is for files that are possible to re-generate / re-download, but are still important to keep around. F.ex. offline maps.
 
-Corresponds to `<Application_Home>/<Application_Home>/Library/Caches` with "do not backup" flag on iOS and [Context.getNoBackupFilesDir()](https://developer.android.com/reference/android/content/Context.html#getNoBackupFilesDir()) on Android.
+Corresponds to `<Application_Home>/Library/Caches` with "do not backup" flag on iOS and [Context.getNoBackupFilesDir()](https://developer.android.com/reference/android/content/Context.html#getNoBackupFilesDir()) on Android.
 
 #### storage.auxiliary
 
 This storage class is for files that can be re-created, and are not crucial to the proper functioning of your app.
 
-Corresponds to `<Application_Home>/<Application_Home>/Library/Caches` on iOS and [Context.getExternalCacheDir()](https://developer.android.com/reference/android/content/Context.html#getExternalCacheDir()) on Android.
+Corresponds to `<Application_Home>/Library/Caches` on iOS and [Context.getExternalCacheDir()](https://developer.android.com/reference/android/content/Context.html#getExternalCacheDir()) on Android.
 
 #### storage.temporary
 
