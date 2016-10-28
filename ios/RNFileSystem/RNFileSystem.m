@@ -3,7 +3,7 @@
 NSString *const STORAGE_BACKED_UP = @"BACKED_UP";
 NSString *const STORAGE_IMPORTANT = @"IMPORTANT";
 NSString *const STORAGE_AUXILIARY = @"AUXILIARY";
-NSString *const STORAGE_TEMPORARY = @"TEMORARY";
+NSString *const STORAGE_TEMPORARY = @"TEMPORARY";
 
 @implementation RNFileSystem
 
