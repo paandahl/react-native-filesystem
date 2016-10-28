@@ -96,6 +96,11 @@ NSString *const STORAGE_TEMPORARY = @"TEMORARY";
   return success;
 }
 
++ (NSString*)absolutePath:(NSString*)relativePath inStorage:(NSString*)storage {
+  NSURL *baseDir = [RNFileSystem baseDirForStorage:storage];
+  return [[baseDir URLByAppendingPathComponent:relativePath] path];
+}
+
 // Extra method for integration from other modules / native code
 + (NSString*)moveFileFromUrl:(NSURL*)location toRelativePath:(NSString*)relativePath inStorage:(NSString*)storage {
   NSFileManager *fileManager = [NSFileManager defaultManager];
