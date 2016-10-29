@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.rnfilesystem">
+
+    <application android:fullBackupContent="@xml/rnfilesystem_backup_rules" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NOTIFICATION_POLICY"
+        android:maxSdkVersion="18" />
+</manifest>
