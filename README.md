@@ -66,32 +66,50 @@ and have similar behaviour on Android. Example usage:
 FileSystem.writeToFile('my-file.txt', 'My content', FileSystem.storage.important);
 ```
 
-Files need to be read from the same storage class they're saved to, and two files can have the same name 
-if they're located in different storages. The options are:
+Files need to be read from the same storage class they're saved to, and two files can have the same 
+name if they're located in different storages. The options are:
 
 #### storage.backedUp
 
-The default. Files stored in this location will automatically be backed up by iCloud on iOS and [Auto Backup for Apps](https://developer.android.com/guide/topics/data/autobackup.html) on Android. This is generally for user-generated content that cannot be re-generated / re-downloaded.
+The default. Files stored in this location will automatically be backed up by iCloud on iOS and 
+[Auto Backup for Apps](https://developer.android.com/guide/topics/data/autobackup.html) on Android
+devices running Marshmallow or newer (6.0+). This is where you'd want to put user generated content.
 
-Corresponds to `<Application_Home>/Documents` on iOS and [Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) on Android.
+Corresponds to `<Application_Home>/Documents` on iOS and 
+[Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) 
+on Android.
 
 #### storage.important
 
-This is for files that are possible to re-generate / re-download, but are still important to keep around. F.ex. offline maps.
+This is for files that are possible to re-generate / re-download, but are still important to keep 
+around during low storage situations. F.ex. offline maps. The system will almost always keep these 
+files around.
 
-Corresponds to `<Application_Home>/Library/Caches` with "do not backup" flag on iOS and [Context.getNoBackupFilesDir()](https://developer.android.com/reference/android/content/Context.html#getNoBackupFilesDir()) on Android.
+Corresponds to `<Application_Home>/Library/Caches` with "do not backup" flag on iOS, and a 
+subdirectory of
+[Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) 
+on Android.
 
 #### storage.auxiliary
 
-This storage class is for files that can be re-created, and are not crucial to the proper functioning of your app.
+This storage class is for files that can be re-created, and that the app can live without. On 
+Android this storage behaves the same as `storage.important`, but on iOS the system can delete
+these files in low storage situations. To play it safe, you should gracefully handle the case where 
+they are gone, by checking their existence.
 
-Corresponds to `<Application_Home>/Library/Caches` on iOS and [Context.getExternalCacheDir()](https://developer.android.com/reference/android/content/Context.html#getExternalCacheDir()) on Android.
+Corresponds to `<Application_Home>/Library/Caches` on iOS, and a subdirectory of
+[Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) 
+explicitly excluded from backup on Android.
+
 
 #### storage.temporary
 
-Location for temporary caches and data. You should still clean up / delete the files when they are no longer in use.
+Location for temporary caches and data. The system can get rid of these at any time, but you are 
+still required to delete them manually to free up space when they are no longer in use.
 
-Corresponds to `<Application_Home>/tmp` on iOS and [Context.getCacheDir()](https://developer.android.com/reference/android/content/Context.html#getCacheDir()) on Android.
+Corresponds to `<Application_Home>/tmp` on iOS and 
+[Context.getCacheDir()](https://developer.android.com/reference/android/content/Context.html#getCacheDir()) 
+on Android.
 
 ## Questions?
 
