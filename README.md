@@ -4,8 +4,6 @@ Simple file system API for iOS &amp; Android, for dealing with text-files.
 All interaction is promise-based, and all content is 
 written and read as UTF-8.
 
-This library is still under development, and only works on iOS at the current moment.
-
 ## Setup
 
     npm install react-native-filesystem --save
@@ -55,7 +53,7 @@ async function checkIfFileExists() {
 }
 ```
 
-### Selecting storage class
+### Selecting a storage class
 
 All commands also take an optional last argument specifying a storage class. 
 These classes roughly correspond to the four points of the 
@@ -75,27 +73,27 @@ The default. Files stored in this location will automatically be backed up by iC
 [Auto Backup for Apps](https://developer.android.com/guide/topics/data/autobackup.html) on Android
 devices running Marshmallow or newer (6.0+). This is where you'd want to put user generated content.
 
-Corresponds to `<Application_Home>/Documents` on iOS and 
+Corresponds to `<Application_Home>/Documents` on iOS and a subdirectory of
 [Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) 
 on Android.
 
 #### storage.important
 
-This is for files that are possible to re-generate / re-download, but are still important to keep 
+For files that are possible to re-generate / re-download, but are still important to keep 
 around during low storage situations. F.ex. offline maps. The system will almost always keep these 
 files around.
 
 Corresponds to `<Application_Home>/Library/Caches` with "do not backup" flag on iOS, and a 
 subdirectory of
 [Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) 
-on Android.
+excluded from backup on Android.
 
 #### storage.auxiliary
 
-This storage class is for files that can be re-created, and that the app can live without. On 
+For files that can be re-created, and that the app can live without. On 
 Android this storage behaves the same as `storage.important`, but on iOS the system can delete
 these files in low storage situations. To play it safe, you should gracefully handle the case where 
-they are gone, by checking their existence.
+they are gone, by checking for their existence.
 
 Corresponds to `<Application_Home>/Library/Caches` on iOS, and a subdirectory of
 [Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) 
@@ -104,7 +102,7 @@ explicitly excluded from backup on Android.
 
 #### storage.temporary
 
-Location for temporary caches and data. The system can get rid of these at any time, but you are 
+For temporary caches and data. The system can get rid of these at any time, but you are 
 still required to delete them manually to free up space when they are no longer in use.
 
 Corresponds to `<Application_Home>/tmp` on iOS and 
