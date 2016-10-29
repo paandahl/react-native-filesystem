@@ -38,6 +38,7 @@ npm-debug.log
 buck-out/
 \.buckd/
 android/app/libs
+android/app/test-fs
 android/keystores/debug.keystore
 
 modules_copy/

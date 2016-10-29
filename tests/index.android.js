@@ -1,53 +1,76 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
-import React, { Component } from 'react';
-import {
+import React from 'react';
+import ReactNative from 'react-native';
+var {
   AppRegistry,
+  ScrollView,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
+  TouchableOpacity,
+  View,
+} = ReactNative;
 
-export default class RNFileSystemTests extends Component {
+var TESTS = [
+  require('./integration-test/FileSystemTest'),
+];
+
+TESTS.forEach(
+  (test) => AppRegistry.registerComponent(test.displayName, () => test)
+);
+
+class IntegrationTestsApp extends React.Component {
+  state = {
+    test: null,
+  };
+
   render() {
+    if (this.state.test) {
+      return (
+        <ScrollView>
+          <this.state.test />
+        </ScrollView>
+      );
+    }
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
+        <Text style={styles.row}>
+          Click on a test to run it in this shell for easier debugging and
+          development.  Run all tests in the testing environment with cmd+U in
+          Xcode.
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <View style={styles.separator} />
+        <ScrollView>
+          {TESTS.map((test) => [
+            <TouchableOpacity
+              onPress={() => this.setState({test})}
+              style={styles.row}>
+              <Text style={styles.testName}>
+                {test.displayName}
+              </Text>
+            </TouchableOpacity>,
+            <View style={styles.separator} />
+          ])}
+        </ScrollView>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
+    marginTop: 40,
+    margin: 15,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  row: {
+    padding: 10,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  testName: {
+    fontWeight: '500',
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#bbbbbb',
   },
 });
 
-AppRegistry.registerComponent('RNFileSystemTests', () => RNFileSystemTests);
+AppRegistry.registerComponent('RNFileSystemTests', () => IntegrationTestsApp);

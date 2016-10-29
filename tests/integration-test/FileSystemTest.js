@@ -3,9 +3,10 @@ import ReactNative from 'react-native';
 import LoggingTestModule from './LoggingTestModule';
 import FileSystem from '../modules_copy/FileSystem'
 
-var View = ReactNative.View;
-var TestModule = ReactNative.NativeModules.TestModule;
-var invariant = require('fbjs/lib/invariant');
+const View = ReactNative.View;
+const Text = ReactNative.Text;
+const TestModule = ReactNative.NativeModules.TestModule;
+const invariant = require('fbjs/lib/invariant');
 
 async function testWriteAndReadAndDelete() {
   const filename = 'my-file.txt';
@@ -57,8 +58,16 @@ async function testFileAndFolderExistence() {
 
 class FileSystemTest extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: 'running',
+    }
+  }
+
   componentDidMount() {
-    this.runTests();  }
+    this.runTests();
+  }
 
   async runTests() {
     try {
@@ -66,14 +75,20 @@ class FileSystemTest extends React.Component {
       await testFileAndFolderExistence();
     } catch (error) {
       LoggingTestModule.logErrorToConsole(error);
-      TestModule.markTestPassed(false);
+      if (TestModule) {
+        TestModule.markTestPassed(false);
+      }
+      this.setState({ status: 'failed' });
       return;
     }
-    TestModule.markTestPassed(true);
+    if (TestModule) {
+      TestModule.markTestPassed(true);
+    }
+    this.setState({ status: 'successful' });
   }
 
   render() {
-    return <View />;
+    return <View><Text>{this.state.status}</Text></View>;
   }
 }
 
