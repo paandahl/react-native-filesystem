@@ -6,6 +6,8 @@ There is only one module, FileSystem, that can be imported like this:
 import FileSystem from 'react-native-filesystem';
 ```
 
+This module works on iOS 8.0+ and Android Ice Cream Sandwich and newer (4.1.x / API-level 16).
+
 ## FileSystem
 
 static **writeToFile** (path: `string`, content: `string`, storage: `string?`): `Promise`
