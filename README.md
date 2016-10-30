@@ -1,4 +1,4 @@
-# react-native-filesystem
+# react-native-filesystem [![npm version](https://img.shields.io/npm/v/react-native-filesystem.svg?style=flat)](https://www.npmjs.com/package/react-native-filesystem)
 Simple file system API for iOS &amp; Android, for dealing with text-files.
 
 All interaction is promise-based, and all content is 
@@ -10,12 +10,15 @@ written and read as UTF-8.
     react-native link react-native-filesystem
 
 ## Usage
+
+For a full list of available methods, see the [API Reference](docs/reference.md)
+
 ### Write to files
 
 ```javascript
 import FileSystem from 'react-native-filesystem';
 
-async function writeFile() {
+async function writeToFile() {
   const fileContents = 'This is a my content.';
   await FileSystem.writeToFile('my-directory/my-file.txt', fileContents);
   console.log('file is written');
@@ -67,47 +70,14 @@ FileSystem.writeToFile('my-file.txt', 'My content', FileSystem.storage.important
 Files need to be read from the same storage class they're saved to, and two files can have the same 
 name if they're located in different storages. The options are:
 
-#### storage.backedUp
+| Storage class | Description |
+|---------------|-------------|
+| `storage.backedUp` | These files are automatically backed up on supported devices
+| `storage.important` | Excluded from backup, but still kept around in low-storage situations
+| `storage.auxiliary` | Files that the app can function without. Can be deleted by the system in low-storage situations.
+| `storage.temporary` | For temporary files and caches. Can be deleted by the system any time.
 
-The default. Files stored in this location will automatically be backed up by iCloud on iOS and 
-[Auto Backup for Apps](https://developer.android.com/guide/topics/data/autobackup.html) on Android
-devices running Marshmallow or newer (6.0+). This is where you'd want to put user generated content.
-
-Corresponds to `<Application_Home>/Documents` on iOS and a subdirectory of
-[Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) 
-on Android.
-
-#### storage.important
-
-For files that are possible to re-generate / re-download, but are still important to keep 
-around during low storage situations. F.ex. offline maps. The system will almost always keep these 
-files around.
-
-Corresponds to `<Application_Home>/Library/Caches` with "do not backup" flag on iOS, and a 
-subdirectory of
-[Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) 
-excluded from backup on Android.
-
-#### storage.auxiliary
-
-For files that can be re-created, and that the app can live without. On 
-Android this storage behaves the same as `storage.important`, but on iOS the system can delete
-these files in low storage situations. To play it safe, you should gracefully handle the case where 
-they are gone, by checking for their existence.
-
-Corresponds to `<Application_Home>/Library/Caches` on iOS, and a subdirectory of
-[Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) 
-explicitly excluded from backup on Android.
-
-
-#### storage.temporary
-
-For temporary caches and data. The system can get rid of these at any time, but you are 
-still required to delete them manually to free up space when they are no longer in use.
-
-Corresponds to `<Application_Home>/tmp` on iOS and 
-[Context.getCacheDir()](https://developer.android.com/reference/android/content/Context.html#getCacheDir()) 
-on Android.
+For full details, see the [API Reference](docs/reference.md)
 
 ## Questions?
 
