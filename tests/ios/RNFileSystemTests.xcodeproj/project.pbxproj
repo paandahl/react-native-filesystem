@@ -1102,6 +1102,7 @@
 				25B7DF451DC1EAC300A39DC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RNFileSystemTests" */ = {
 			isa = XCConfigurationList;
