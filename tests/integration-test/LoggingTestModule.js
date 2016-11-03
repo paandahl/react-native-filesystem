@@ -40,6 +40,21 @@ export default class LoggingTestModule {
     }
   }
 
+  static assertIncludes(obj, subelemnt) {
+    if (subelemnt instanceof Array) {
+      for (const subel of subelemnt) {
+        if (obj.includes(subel)) {
+          return;
+        }
+      }
+      this.logErrorToConsole(`Object '${obj}' does not include any of ${subelemnt}`);
+    } else {
+      if (!obj.includes(subelemnt)) {
+        this.logErrorToConsole(`Object '${obj}' does not include '${subelemnt}'`);
+      }
+    }
+  }
+
   static logErrorToConsole(str) {
     console.error(str);
   }

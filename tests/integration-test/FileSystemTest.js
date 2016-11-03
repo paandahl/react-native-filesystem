@@ -56,6 +56,17 @@ async function testFileAndFolderExistence() {
   LoggingTestModule.assertFalse(fileExists, 'File should be deleted at this point.');
 }
 
+function testAbsolutePath() {
+  const backedUpPath = FileSystem.absolutePath('my-file.txt', FileSystem.storage.backedUp);
+  LoggingTestModule.assertIncludes(backedUpPath, ['Documents', 'BackedUp']);
+  const importantPath = FileSystem.absolutePath('my-file.txt', FileSystem.storage.important);
+  LoggingTestModule.assertIncludes(importantPath, 'Important');
+  const auxiliaryPath = FileSystem.absolutePath('my-file.txt', FileSystem.storage.auxiliary);
+  LoggingTestModule.assertIncludes(auxiliaryPath, 'Auxiliary');
+  const tempPath = FileSystem.absolutePath('my-file.txt', FileSystem.storage.temporary);
+  LoggingTestModule.assertIncludes(tempPath, '/');
+}
+
 class FileSystemTest extends React.Component {
 
   constructor(props) {
@@ -73,6 +84,7 @@ class FileSystemTest extends React.Component {
     try {
       await testWriteAndReadAndDelete();
       await testFileAndFolderExistence();
+      testAbsolutePath();
     } catch (error) {
       LoggingTestModule.logErrorToConsole(error);
       if (TestModule) {

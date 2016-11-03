@@ -158,11 +158,7 @@ public class FakeAndroidContext extends Context {
 
   @Override
   public File getCacheDir() {
-    File cacheDir = new File("cache");
-    if (!cacheDir.exists()) {
-      cacheDir.mkdir();
-    }
-    return cacheDir;
+    return null;
   }
 
   @Override

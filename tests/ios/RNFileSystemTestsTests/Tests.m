@@ -62,5 +62,10 @@
   XCTAssertFalse(fileExists);
 }
 
+- (void)testAbsolutePathConstants {
+  RNFileSystem *fileSystem = [[RNFileSystem alloc] init];
+  NSString *backedUp = [[fileSystem constantsToExport] valueForKey:STORAGE_BACKED_UP];
+  XCTAssertFalse([backedUp hasSuffix:@"/"]);
+}
 
 @end
