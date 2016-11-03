@@ -11,7 +11,7 @@ written and read as UTF-8.
 
 ## Usage
 
-For a full list of available methods, see the [API Reference](docs/reference.md)
+For a full list of available methods, see the [API Reference](docs/reference.md).
 
 ### Write to files
 
@@ -77,7 +77,7 @@ name if they're located in different storages. The options are:
 | `storage.auxiliary` | Files that the app can function without. Can be deleted by the system in low-storage situations.
 | `storage.temporary` | For temporary files and caches. Can be deleted by the system any time.
 
-For full details, see the [API Reference](docs/reference.md)
+For full details, see the [API Reference](docs/reference.md).
 
 ## Questions?
 
