@@ -10,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class RNFileSystem extends ReactContextBaseJavaModule {
@@ -23,6 +25,16 @@ public class RNFileSystem extends ReactContextBaseJavaModule {
     IMPORTANT,
     AUXILIARY,
     TEMPORARY
+  }
+
+  @Override
+  public Map<String, Object> getConstants() {
+    final Map<String, Object> constants = new HashMap<>();
+    constants.put(Storage.BACKED_UP.toString(), baseDirForStorage(Storage.BACKED_UP));
+    constants.put(Storage.IMPORTANT.toString(), baseDirForStorage(Storage.IMPORTANT));
+    constants.put(Storage.AUXILIARY.toString(), baseDirForStorage(Storage.AUXILIARY));
+    constants.put(Storage.TEMPORARY.toString(), baseDirForStorage(Storage.TEMPORARY));
+    return constants;
   }
 
   @Override

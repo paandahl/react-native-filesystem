@@ -7,12 +7,24 @@ NSString *const STORAGE_TEMPORARY = @"TEMPORARY";
 
 @implementation RNFileSystem
 
+- (NSDictionary<NSString *, NSString *> *)constantsToExport {
+  return @{STORAGE_BACKED_UP: [[RNFileSystem baseDirForStorage:STORAGE_BACKED_UP] path],
+           STORAGE_IMPORTANT: [[RNFileSystem baseDirForStorage:STORAGE_IMPORTANT] path],
+           STORAGE_AUXILIARY: [[RNFileSystem baseDirForStorage:STORAGE_AUXILIARY] path],
+           STORAGE_TEMPORARY: [[RNFileSystem baseDirForStorage:STORAGE_TEMPORARY] path]};
+}
+
+
 + (NSURL*)baseDirForStorage:(NSString*)storage {
   NSFileManager *fileManager = [NSFileManager defaultManager];
   if ([storage isEqual:STORAGE_BACKED_UP]) {
     return [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
-  } else if ([storage isEqual:STORAGE_IMPORTANT] || [storage isEqual:STORAGE_AUXILIARY]) {
-    return [fileManager URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
+  } else if ([storage isEqual:STORAGE_IMPORTANT]) {
+    NSURL *cachesDir = [fileManager URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
+    return [cachesDir URLByAppendingPathComponent:@"Important"];
+  } else if ([storage isEqual:STORAGE_AUXILIARY]) {
+    NSURL *cachesDir = [fileManager URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
+    return [cachesDir URLByAppendingPathComponent:@"Auxiliary"];
   } else if ([storage isEqual:STORAGE_TEMPORARY]) {
     return [NSURL fileURLWithPath:NSTemporaryDirectory()];
   } else {
@@ -45,7 +57,8 @@ NSString *const STORAGE_TEMPORARY = @"TEMPORARY";
   NSFileManager *fileManager = [NSFileManager defaultManager];
   BOOL fileExists = [fileManager fileExistsAtPath:[fullPath path]];
   if (!fileExists) {
-    NSDictionary *errorDetail = @{NSLocalizedDescriptionKey: @"File does not exist."};
+    NSString* errorMessage = [NSString stringWithFormat:@"File '%@' does not exist in storage: %@", relativePath, storage];
+    NSDictionary *errorDetail = @{NSLocalizedDescriptionKey: errorMessage};
     *error = [NSError errorWithDomain:@"FSComponent" code:1 userInfo:errorDetail];
     return nil;
   }

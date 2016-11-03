@@ -31,4 +31,8 @@ export default class FileSystem {
   static async directoryExists(path, storage = FileSystem.storage.backedUp) {
     return await RNFileSystem.directoryExists(path, storage);
   }
+
+  static absolutePath(path, storage = FileSystem.storage.backedUp) {
+    return RNFileSystem[storage] + '/' + path;
+  }
 }
