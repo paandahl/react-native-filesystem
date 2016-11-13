@@ -1,5 +1,5 @@
 # react-native-filesystem [![npm version](https://img.shields.io/npm/v/react-native-filesystem.svg?style=flat)](https://www.npmjs.com/package/react-native-filesystem)
-Simple file system API for iOS &amp; Android, for dealing with text-files.
+Simple file system access on iOS &amp; Android.
 
 All interaction is promise-based, and all content is 
 written and read as UTF-8.
@@ -8,6 +8,8 @@ written and read as UTF-8.
 
     npm install react-native-filesystem --save
     react-native link react-native-filesystem
+    
+This project is based on the [9-project-layout](https://github.com/benwixen/9-project-layout).
 
 ## Usage
 

@@ -18,15 +18,17 @@ NSString *const STORAGE_TEMPORARY = @"TEMPORARY";
 + (NSURL*)baseDirForStorage:(NSString*)storage {
   NSFileManager *fileManager = [NSFileManager defaultManager];
   if ([storage isEqual:STORAGE_BACKED_UP]) {
-    return [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
+    NSURL *docsDir = [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
+    return [docsDir URLByAppendingPathComponent:@"RNFS-BackedUp"];
   } else if ([storage isEqual:STORAGE_IMPORTANT]) {
     NSURL *cachesDir = [fileManager URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
-    return [cachesDir URLByAppendingPathComponent:@"Important"];
+    return [cachesDir URLByAppendingPathComponent:@"RNFS-Important"];
   } else if ([storage isEqual:STORAGE_AUXILIARY]) {
     NSURL *cachesDir = [fileManager URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
-    return [cachesDir URLByAppendingPathComponent:@"Auxiliary"];
+    return [cachesDir URLByAppendingPathComponent:@"RNFS-Auxiliary"];
   } else if ([storage isEqual:STORAGE_TEMPORARY]) {
-    return [NSURL fileURLWithPath:NSTemporaryDirectory()];
+    NSURL *tempDir = [NSURL fileURLWithPath:NSTemporaryDirectory()];
+    return [tempDir URLByAppendingPathComponent:@"RNFS-Temporary"];
   } else {
     [NSException raise:@"InvalidArgument" format:[NSString stringWithFormat:@"Storage type not recognized: %@", storage]];
     return nil;

@@ -66,7 +66,7 @@ supported iOS versions (8.0+) and
 [Auto Backup for Apps](https://developer.android.com/guide/topics/data/autobackup.html) on Android
 devices running Marshmallow or newer (6.0+). This is where you'd want to put user generated content.
 
-Corresponds to `<Application_Home>/Documents` on iOS and a subdirectory of
+Corresponds to a subdirectory of `<Application_Home>/Documents` on iOS and
 [Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) 
 on Android.
 
@@ -87,7 +87,7 @@ On Android this storage behaves the same as `storage.important`.
 
 This is for files that can be re-created, and that the app can live without. On iOS the system can 
 delete these files in low storage situations. To play it safe, you should gracefully handle the 
-case where they are gone, by checking for their existence.
+case where they are gone, by checking for their existence on application startup.
 
 Corresponds to a subdirectory of `<Application_Home>/Library/Caches` on iOS, and a subdirectory of
 [Context.getFilesDir()](https://developer.android.com/reference/android/content/Context.html#getFilesDir()) 
@@ -109,6 +109,6 @@ To quote Apple's
 For temporary caches and data. The system can get rid of these at any time, but you are 
 still required to delete them manually to free up space when they are no longer in use.
 
-Corresponds to `<Application_Home>/tmp` on iOS and 
+Corresponds to a subdirectory of `<Application_Home>/tmp` on iOS and 
 [Context.getCacheDir()](https://developer.android.com/reference/android/content/Context.html#getCacheDir()) 
 on Android.

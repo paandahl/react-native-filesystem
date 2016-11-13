@@ -45,13 +45,13 @@ public class RNFileSystem extends ReactContextBaseJavaModule {
   private String baseDirForStorage(Storage storage) {
     switch (storage) {
       case BACKED_UP:
-        return getReactApplicationContext().getFilesDir().getAbsolutePath() + "/BackedUp";
+        return getReactApplicationContext().getFilesDir().getAbsolutePath() + "/RNFS-BackedUp";
       case IMPORTANT:
-        return getReactApplicationContext().getFilesDir().getAbsolutePath() + "/Important";
+        return getReactApplicationContext().getFilesDir().getAbsolutePath() + "/RNFS-Important";
       case AUXILIARY:
-        return getReactApplicationContext().getFilesDir().getAbsolutePath() + "/Auxiliary";
+        return getReactApplicationContext().getFilesDir().getAbsolutePath() + "/RNFS-Auxiliary";
       case TEMPORARY:
-        return getReactApplicationContext().getCacheDir().getAbsolutePath();
+        return getReactApplicationContext().getCacheDir().getAbsolutePath() + "/RNFS-Temporary";
       default:
         throw new RuntimeException("Unrecognized storage: " + storage.toString());
     }
