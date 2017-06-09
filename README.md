@@ -1,6 +1,8 @@
 # react-native-filesystem [![npm version](https://img.shields.io/npm/v/react-native-filesystem.svg?style=flat)](https://www.npmjs.com/package/react-native-filesystem)
 Simple file system access on iOS &amp; Android.
 
+> WARNING: Because of time constraints, I am currently unable to maintain this project. Huy has created a fork, and added support for React Native Windows: https://github.com/hnq90/react-native-filesystem
+
 All interaction is promise-based, and all content is 
 written and read as UTF-8.
 
